@@ -29,6 +29,9 @@ export const getUser = async ({userName}) => {
             console.error("Trouble fetching user");
             return null;
         }
+
+        const data = await res.json();
+        return data;
     } catch(error) {
         console.log("Get USER - 400");
         console.error("Failed fetching user");

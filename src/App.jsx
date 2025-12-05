@@ -7,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Layout from './components/Layout/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
-import UserResults from './components/user/UserResults';
 import User from './components/user/User';
 
 const App = () => {
