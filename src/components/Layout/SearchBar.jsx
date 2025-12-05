@@ -1,12 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { getUsers } from "@/api/gitApi";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserCard from "./UserCard";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { userContext } from "@/context/UserContext";
 
 const SearchBar = () => {
-  const [users, setUsers] = useState([]);
+  const { users, setUsers} = useContext(userContext);
   const [userName, setUserName] = useState(null);
   const [error, setError] = useState(false);
 
@@ -31,14 +32,6 @@ const SearchBar = () => {
       toast.error("Failed loading users");
     }
   };
-
-  useEffect(() => {
-    const displayUsers = () => {
-      console.log(users);
-    };
-
-    displayUsers();
-  });
 
   const handleClear = () => {
     setUsers([]);

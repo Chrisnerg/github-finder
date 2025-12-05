@@ -1,12 +1,27 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Link } from "react-router-dom";
+import { userContext } from "@/context/UserContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { getUser } from "@/api/gitApi";
 
-const UserCard = ({user}) => {
+const UserCard = ({ user }) => {
+
+  const { setUser } = useContext(userContext);
+  const navigate = useNavigate();
+
+  //function for setting the global user state to the clicked user profile
+  const handleClick = async () => {
+    const fetchedUser = await getUser({userName: user.login});
+
+    console.log(fetchedUser.login)
+    if(fetchedUser) {
+      setUser(fetchedUser);
+      navigate("/user");
+    } 
+  };
+
   return (
     <Card className="bg-base-100 flex gap-x-0 items-center w-4/5 border-none">
       <CardHeader>
@@ -17,7 +32,7 @@ const UserCard = ({user}) => {
       </CardHeader>
       <CardContent>
         <p className="text-white text-xl">{user.login}</p>
-        <Link to="/user">
+        <Link onClick={handleClick}>
           <p className="text-sm text-gray-500 hover:text-gray-600">
             View profile
           </p>
